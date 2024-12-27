@@ -1,50 +1,152 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="style.css">
-    <title>New page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Новогодняя Игра от Хекслета</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .tree {
+            width: 300px;
+            height: 400px;
+            background: #2e8b57;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            margin-bottom: 20px;
+        }
+
+        .ornament {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: gold;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            transition: transform 0.2s ease;
+        }
+
+        .ornament:hover {
+            transform: scale(1.1);
+        }
+
+        .ornament.red { background: #ff4d4d; }
+        .ornament.blue { background: #4da6ff; }
+        .ornament.green { background: #66ff66; }
+
+        .star {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: gold;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            transition: transform 0.2s ease;
+            top: -10px; /* Позиция звезды над елкой */
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10; /* Звезда на переднем плане */
+        }
+
+        .star:hover {
+            transform: translateX(-50%) scale(1.1);
+        }
+
+        .message {
+            margin-top: 20px;
+            font-size: 1.2em;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 300px;
+        }
+    </style>
 </head>
 <body>
-<main>
-    <h1>Emmet</h1>
+    <h1>Новогодняя Ёлка от Хекслета</h1>
+    <div class="container">
+        <!-- макушка -->
+        <div class="star" onclick="showStarMessage()">⭐</div>
 
-    <ul>
-        <li>Быстрый</li>
-        <li>Удобный</li>
-        <li>Нескучные обои</li>
-    </ul>
+        <!-- Ёлка -->
+        <div class="tree">
+            <!-- Первый ряд шариков -->
+            <div class="ornament red" style="top: 50%; left: 30%;" onclick="showMessage()">🎄</div>
+            <div class="ornament blue" style="top: 60%; left: 50%;" onclick="showMessage()">💻</div>
+            <div class="ornament green" style="top: 70%; left: 70%;" onclick="showMessage()">🎅</div>
 
-    <p>Emmet помогает мне писать верстку быстрее</p>
-    <p>Emmet помогает мне писать верстку быстрее</p>
-    <p>Emmet помогает мне писать верстку быстрее</p>
-    <p>Emmet помогает мне писать верстку быстрее</p>
-    <p>Emmet помогает мне писать верстку быстрее</p>
-    <p>Emmet помогает мне писать верстку быстрее</p>
-    <p>Emmet помогает мне писать верстку быстрее</p>
-    <p>Emmet помогает мне писать верстку быстрее</p>
-    <p>Emmet помогает мне писать верстку быстрее</p>
-    <p>Emmet помогает мне писать верстку быстрее</p>
-</main>
+            <!-- Второй ряд шариков -->
+            <div class="ornament red" style="top: 60%; left: 20%;" onclick="showMessage()">✨</div>
+            <div class="ornament blue" style="top: 70%; left: 40%;" onclick="showMessage()">👨‍💻</div>
+            <div class="ornament green" style="top: 80%; left: 60%;" onclick="showMessage()">🎁</div>
+        </div>
+    </div>
+    <div class="message" id="message">Нажми на игрушку, чтобы увидеть поздравление!</div>
 
+    <script>
+        const messages = [
+            "С Новым Годом! Пусть твой код всегда будет чистым и без багов!",
+            "Пусть твои проекты компилируются с первого раза! С праздником!",
+            "Желаем, чтобы твой стек всегда был полон, а очередь — пуста!",
+            "Пусть твои алгоритмы будут быстрыми, а дедлайны — далекими!",
+            "С Новым Годом! Пусть твой код будет читабельным, как сказка!",
+            "Желаем, чтобы твои переменные всегда были инициализированы!",
+            "Пусть твои функции всегда возвращают ожидаемый результат!",
+            "С Новым Годом! Пусть твой код будет легче, чем снежинка!"
+        ];
+
+        const starMessages = [
+            "Получи свой офер в новом году, дружок!",
+            "Пусть твоя карьера взлетит, как ракета!",
+            "Новый год — новые возможности!",
+            "Желаем тебе крутых проектов и высокой зарплаты!"
+        ];
+
+        function showMessage() {
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            document.getElementById('message').textContent = randomMessage;
+        }
+
+        function showStarMessage() {
+            const randomStarMessage = starMessages[Math.floor(Math.random() * starMessages.length)];
+            document.getElementById('message').textContent = randomStarMessage;
+        }
+    </script>
 </body>
 </html>
-
-<div class="hello"></div>
-
-<div class="hello"></div>
-
-<main>
-    <h1>Резюме</h1>
-    <h2>Разработчик веб-приложений</h2>
-    <section class="study">
-        <ul>
-            <li>Место учёбы №1</li>
-            <li>Место учёбы №2</li>
-            <li>Место учёбы №3</li>
-        </ul>
-    </section>
-</main>
